@@ -1,36 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf.c                                        :+:      :+:    :+:   */
+/*   ft_print_addr.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yunozdem <yunozdem@student.42istanbul.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/21 14:55:06 by yunozdem          #+#    #+#             */
-/*   Updated: 2024/03/22 19:34:30 by yunozdem         ###   ########.fr       */
+/*   Created: 2024/02/21 16:20:24 by yunozdem          #+#    #+#             */
+/*   Updated: 2024/02/23 18:24:50 by yunozdem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-int	ft_printf(const char *s, ...)
+int	ft_print_addr(unsigned long long n)
 {
-	va_list	arg;
-	int		i;
-	int		len;
+	int	len;
 
 	len = 0;
-	i = 0;
-	va_start(arg, s);
-	while (s[i])
-	{
-		if (s[i] == '%')
-		{
-			len += ft_formats(s, arg, ++i);
-		}
-		else
-			len += ft_putchar(s[i]);
-		i++;
-	}
-	va_end(arg);
+	len += write(1, "0x", 2);
+	len += ft_print_hex(n, 'x');
 	return (len);
 }

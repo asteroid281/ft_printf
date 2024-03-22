@@ -1,35 +1,27 @@
+SRCS =	ft_printf.c \
+		ft_formats.c \
+		ft_printf_utils.c \
+		ft_print_hex.c \
+		ft_print_addr.c
+		
+OBJS = ${SRCS:.c=.o}
+
 NAME = libftprintf.a
-LIBFTNAME = libft.a
-CC = cc
-CFLAGS = -Wall -Werror -Wextra
-LIBFTDIR = ./libft
+CC = gcc
+CFLAGS = -Wall -Wextra -Werror
+RM = rm -f
 
-SRCS = 	ft_printf.c \
-		print_pointer.c \
-		print_unsigned.c \
-		print_string.c \
-		print_int.c \
-		print_char.c \
-		print_hex.c \
+all: ${NAME}
 
-OBJS = $(SRCS:.c=.o)
-
-all: $(NAME)
-
-makelibft:
-	@make -C $(LIBFTDIR)
-	@cp $(LIBFTDIR)/$(LIBFTNAME) .
-	@mv $(LIBFTNAME) $(NAME)
-
-$(NAME): makelibft $(OBJS)
-	@ar -r $(NAME) $(OBJS)
+$(NAME): $(OBJS)
+			ar -rc $(NAME) $(OBJS)
 
 clean:
-	@rm -f $(OBJS)
-	@cd $(LIBFTDIR) && make clean
-	
+			${RM} ${OBJS} 
+
 fclean: clean
-	@rm -f $(NAME)
-	@cd $(LIBFTDIR) && make fclean
-	
+			${RM} ${NAME}
+
 re: fclean all
+
+.PHONY: all clean fclean re
